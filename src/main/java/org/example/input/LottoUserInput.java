@@ -27,9 +27,18 @@ public class LottoUserInput {
         return givenNumbers;
     }
 
+
+
         private boolean areUserInputLessThanSixNumbers(Set<Integer> numbers){
             return numbers.size() <HOW_MANY_NUMBERS_FROM_USER;
         }
+
+ public Set<Integer> getSixNumbers(Scanner scannerUserNumbers) {
+        Set<Integer> givenNumbersFromUser = getNumbersFromUserInput(scannerUserNumbers);
+        scannerUserNumbers.close();
+        return givenNumbersFromUser;
+    }
+
 
     }
 
