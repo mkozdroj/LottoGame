@@ -1,4 +1,4 @@
-package org.example.configuration;
+package games.lotto.configuration;
 
 public class LottoGameConfiguration {
     public static final int NUMBERS_TO_GENERATE = 6;

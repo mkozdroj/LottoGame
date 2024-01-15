@@ -1,10 +1,11 @@
-package org.example.input;
+package games.input;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.*;
 
 
+import games.lotto.input.LottoUserInput;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -12,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class LottoUserInputTest {
-
     LottoUserInput lottoUserInput = new LottoUserInput();
+
 
     @Test
  public void shouldReturnNumbersInSetWhenAllInRange(){

@@ -1,21 +1,24 @@
-package org.example.input;
+package games.lotto.input;
 
-import org.example.messages.LottoMessages;
+import games.lotto.messages.LottoMessages;
 
 import java.util.*;
 
-import static org.example.configuration.LottoGameConfiguration.*;
+import static games.lotto.configuration.LottoGameConfiguration.*;
 
 public class LottoUserInput {
 
-    //System scanner = new Scanner(System.in);
-
+    public Set<Integer> getSixNumbers(Scanner scanner) {
+        Set<Integer> givenNumbersFromUser = getNumbersFromUserInput(scanner);
+        scanner.close();
+        return givenNumbersFromUser;
+    }
 
     private Set<Integer> getNumbersFromUserInput(Scanner input) {
         final Set<Integer> givenNumbers = new HashSet<>();
         System.out.println(String.format(LottoMessages.PLEASE_GIVE_NUMBER, HOW_MANY_NUMBERS_FROM_USER));
         while (areUserInputLessThanSixNumbers(givenNumbers)) {
-            System.out.println(LottoMessages.GIVE_NUMBER);
+            System.out.printf(LottoMessages.GIVE_NUMBER, LOWER_BOUND, UPPER_BOUND);
             while (!input.hasNextInt()) {
                 System.out.printf(LottoMessages.IS_NOT_IN_RANGE, LOWER_BOUND, UPPER_BOUND);
                 if (!input.hasNext()) {
@@ -23,12 +26,12 @@ public class LottoUserInput {
                 }
             }
             final int userInput = input.nextInt();
-            vaildateUserNumbers(givenNumbers, userInput);
+            validateUserNumbers(givenNumbers, userInput);
         }
         return givenNumbers;
     }
 
-    public void vaildateUserNumbers(Set<Integer> givenNumbers, int userInput) {
+    public void validateUserNumbers(Set<Integer> givenNumbers, int userInput) {
         if (isInRange(userInput)) {
             givenNumbers.add(userInput);
         } else {
@@ -43,12 +46,6 @@ public class LottoUserInput {
 
     private boolean areUserInputLessThanSixNumbers(Set<Integer> numbers) {
         return numbers.size() < HOW_MANY_NUMBERS_FROM_USER;
-    }
-
-    public Set<Integer> getSixNumbers(Scanner scanner) {
-        Set<Integer> givenNumbersFromUser = getNumbersFromUserInput(scanner);
-        scanner.close();
-        return givenNumbersFromUser;
     }
 
 
