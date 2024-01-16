@@ -1,4 +1,4 @@
-package org.example;
+package games;
 
 
 import games.Game;

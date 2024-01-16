@@ -2,7 +2,9 @@ package games.lotto.input;
 
 import games.lotto.messages.LottoMessages;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 import static games.lotto.configuration.LottoGameConfiguration.*;
 
@@ -16,22 +18,28 @@ public class LottoUserInput {
 
     private Set<Integer> getNumbersFromUserInput(Scanner input) {
         final Set<Integer> givenNumbers = new HashSet<>();
-        System.out.println(String.format(LottoMessages.PLEASE_GIVE_NUMBER, HOW_MANY_NUMBERS_FROM_USER));
+        boolean invalidInput = false;
+
         while (areUserInputLessThanSixNumbers(givenNumbers)) {
-            System.out.printf(LottoMessages.GIVE_NUMBER, LOWER_BOUND, UPPER_BOUND);
-            while (!input.hasNextInt()) {
-                System.out.printf(LottoMessages.IS_NOT_IN_RANGE, LOWER_BOUND, UPPER_BOUND);
-                if (!input.hasNext()) {
-                    return Collections.emptySet();
-                }
+            if (invalidInput) {
+                System.out.printf(LottoMessages.NOT_INT_GIVE_NUMBER, LOWER_BOUND, UPPER_BOUND);
+                invalidInput = false;
             }
-            final int userInput = input.nextInt();
-            validateUserNumbers(givenNumbers, userInput);
+            System.out.printf(LottoMessages.GIVE_NUMBER, LOWER_BOUND, UPPER_BOUND);
+
+            if (input.hasNextInt()) {
+                int userInput = input.nextInt();
+                validateUserNumbers(givenNumbers, userInput);
+            } else {
+                input.next();
+                invalidInput = true;
+            }
         }
         return givenNumbers;
     }
 
     public void validateUserNumbers(Set<Integer> givenNumbers, int userInput) {
+
         if (isInRange(userInput)) {
             givenNumbers.add(userInput);
         } else {
@@ -43,11 +51,8 @@ public class LottoUserInput {
         return (userInput >= RANDOM_NUMBERS_START && userInput <= RANDOM_NUMBERS_END);
     }
 
-
     private boolean areUserInputLessThanSixNumbers(Set<Integer> numbers) {
         return numbers.size() < HOW_MANY_NUMBERS_FROM_USER;
     }
-
-
 }
 
